@@ -126,6 +126,17 @@
       word-break: break-all;
     }
 
+    .status {
+      min-height: 48px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #444;
+      background: #f7f9ff;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+
     .tip {
       font-size: 16px;
       color: #555;
@@ -202,17 +213,6 @@
       font-weight: bold;
     }
 
-    .status {
-      min-height: 44px;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #444;
-      background: #f7f9ff;
-      border-radius: 14px;
-      padding: 12px;
-      margin-top: 12px;
-    }
-
     .small {
       font-size: 14px;
       color: #777;
@@ -255,7 +255,7 @@
     <div class="card">
       <h1>AI小耳朵普通话闯关赛</h1>
       <div class="slogan">说清楚，AI才听得懂</div>
-      <div class="badge">手机网页语音识别版</div>
+      <div class="badge">讯飞语音识别版</div>
 
       <div class="section-title">请选择闯关类型</div>
 
@@ -286,7 +286,7 @@
         1. 点击“开始录音”。<br>
         2. 让小朋友读出挑战句。<br>
         3. 读完后点击“我读完了，开始识别”。<br>
-        4. 等待系统返回识别结果。<br>
+        4. 等待系统返回识别文字。<br>
         5. 根据匹配度进行纠音或加星。
       </div>
     </div>
@@ -311,9 +311,7 @@
 
     <div class="card">
       <div class="section-title">小组积分</div>
-      <div id="stars" class="star-box">
-        小组星星：0 颗
-      </div>
+      <div id="stars" class="star-box">小组星星：0 颗</div>
 
       <div class="buttons">
         <div class="group">
@@ -324,8 +322,8 @@
     </div>
 
     <div class="card small">
-      <p><span class="highlight">说明：</span>本版不使用手机键盘语音输入，而是由网页直接录音，读完后上传到后台进行语音识别。</p>
-      <p><span class="highlight">课堂提醒：</span>正式使用前，请提前用准备带去的手机和平板测试。每次录音建议控制在10秒以内。</p>
+      <p><span class="highlight">说明：</span>本页面由手机网页直接录音，读完后上传至后台接口，由讯飞语音听写完成语音转文字，再返回识别结果。</p>
+      <p><span class="highlight">课堂提醒：</span>正式使用前，请提前用准备带去的手机和平板测试。每次录音建议控制在 3—10 秒。</p>
     </div>
 
   </div>
@@ -343,7 +341,14 @@
           "我爱我的学校",
           "今天我很开心",
           "我喜欢读书",
-          "我会说普通话"
+          "我喜欢唱歌",
+          "我喜欢画画",
+          "我会说普通话",
+          "我喜欢上学",
+          "我喜欢我的老师",
+          "我有很多好朋友",
+          "请大家为我加油",
+          "我今天很勇敢"
         ]
       },
 
@@ -355,62 +360,110 @@
           "我会努力说好普通话",
           "说好普通话沟通你我他",
           "普通话让我们更好交流",
+          "我和朋友一起说普通话",
+          "学好普通话认识更多朋友",
+          "普通话是沟通的桥梁",
           "我愿意做普通话小勇士",
+          "我想把普通话说得更清楚",
+          "今天我参加普通话闯关赛",
+          "我用普通话介绍自己",
+          "我用普通话表达想法",
+          "普通话让我的声音更清楚",
+          "我们一起学习普通话",
           "大家一起说好普通话"
         ]
       },
 
       hometown: {
         name: "家乡小喇叭",
-        desc: "当前关卡：家乡小喇叭。引导孩子用普通话介绍家乡。",
+        desc: "当前关卡：家乡小喇叭。引导孩子用普通话介绍家乡，把推普和乡村文化表达结合起来。",
         sentences: [
           "我爱我的家乡",
           "我的家乡很美丽",
           "我喜欢家乡的山水",
           "我的家乡有青山绿水",
+          "我的家乡有美丽的风景",
+          "我想介绍我的家乡",
           "欢迎大家来到我的家乡",
-          "我想把家乡介绍给大家"
+          "我想把家乡介绍给大家",
+          "我的家乡有勤劳的人们",
+          "我长大后要建设家乡",
+          "家乡的天空很蓝",
+          "家乡的风景真好看",
+          "我喜欢家乡的田野",
+          "我喜欢家乡的小路",
+          "我为我的家乡感到自豪"
         ]
       },
 
       school: {
         name: "校园生活",
-        desc: "当前关卡：校园生活。围绕小学生熟悉的校园场景设计。",
+        desc: "当前关卡：校园生活。围绕小学生熟悉的校园场景设计，降低表达难度。",
         sentences: [
           "我的学校很美丽",
           "我喜欢我的老师",
           "我喜欢和同学一起学习",
           "上课时我要认真听讲",
           "下课后我们一起做游戏",
+          "我每天背着书包去上学",
+          "操场上有很多同学",
+          "教室里传来朗朗读书声",
+          "我在学校学到了很多知识",
+          "我要做一个勇敢表达的孩子",
+          "我喜欢在教室里读书",
+          "我的同桌很友好",
+          "老师教我们学习知识",
+          "我们一起参加课堂活动",
           "我今天学会了新本领"
         ]
       },
 
       pronunciation: {
         name: "难音挑战",
-        desc: "当前关卡：难音挑战。重点练习平翘舌音、前后鼻音和声调。",
+        desc: "当前关卡：难音挑战。重点练习平翘舌音、前后鼻音和声调，适合志愿者进行纠音指导。",
         sentences: [
           "我是普通话小勇士",
           "知识让我们成长",
           "城市和乡村都很美",
           "山上有许多树",
+          "老师教我们读书",
+          "我认真学习知识",
+          "春天到了花儿开放",
+          "小朋友要注意安全",
+          "请伸出手和我一起读",
+          "这是我的普通话挑战",
           "我的声音很响亮",
+          "我认真听老师讲话",
           "天上的星星亮晶晶",
+          "我有一个美丽的梦想",
           "请你听清我的声音",
-          "普通话让声音更清楚"
+          "我们一起向前走",
+          "今天的阳光很温暖",
+          "我想成为更好的自己",
+          "普通话让声音更清楚",
+          "我相信自己能成功"
         ]
       },
 
       speaker: {
         name: "终极讲解员",
-        desc: "当前关卡：终极讲解员。适合高年级学生展示。",
+        desc: "当前关卡：终极讲解员。适合高年级学生展示，用完整句子进行表达。",
         sentences: [
           "大家好我是普通话小讲解员",
           "我今天想介绍我的学校",
           "我今天想介绍我的家乡",
+          "我最喜欢家乡的美食",
           "我最喜欢家乡的风景",
           "我想把美丽的家乡讲给大家听",
-          "谢谢大家听我介绍"
+          "欢迎大家听我讲一个故事",
+          "请大家为我加油",
+          "我会勇敢地说普通话",
+          "谢谢大家听我介绍",
+          "大家好我想介绍自己",
+          "我喜欢学习也喜欢运动",
+          "我希望以后能去更远的地方",
+          "我想用普通话认识更多朋友",
+          "我相信我能说得越来越好"
         ]
       }
     };
@@ -419,10 +472,12 @@
     let currentSentence = categories[currentCategory].sentences[0];
     let starCount = 0;
 
-    let mediaRecorder = null;
-    let audioChunks = [];
-    let audioBlob = null;
+    let audioContext = null;
+    let mediaStream = null;
+    let scriptProcessor = null;
+    let pcmDataList = [];
     let recordingTimer = null;
+    let isRecording = false;
 
     const sentenceBox = document.getElementById("sentence");
     const resultBox = document.getElementById("result");
@@ -459,50 +514,55 @@
 
     async function startRecording() {
       try {
-        audioChunks = [];
-        audioBlob = null;
+        pcmDataList = [];
         resultBox.innerText = "等待识别结果……";
         scoreBox.innerText = "";
 
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-        const supportedTypes = [
-          "audio/webm;codecs=opus",
-          "audio/webm",
-          "audio/mp4"
-        ];
-
-        let selectedType = "";
-        for (const type of supportedTypes) {
-          if (window.MediaRecorder && MediaRecorder.isTypeSupported(type)) {
-            selectedType = type;
-            break;
-          }
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          alert("当前浏览器不支持网页录音，请更换浏览器或设备测试。");
+          statusBox.innerText = "当前浏览器不支持网页录音。";
+          return;
         }
 
-        mediaRecorder = selectedType
-          ? new MediaRecorder(stream, { mimeType: selectedType })
-          : new MediaRecorder(stream);
-
-        mediaRecorder.ondataavailable = function(event) {
-          if (event.data && event.data.size > 0) {
-            audioChunks.push(event.data);
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
           }
+        });
+
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        if (audioContext.state === "suspended") {
+          await audioContext.resume();
+        }
+
+        const source = audioContext.createMediaStreamSource(mediaStream);
+
+        scriptProcessor = audioContext.createScriptProcessor(4096, 1, 1);
+
+        scriptProcessor.onaudioprocess = function(event) {
+          if (!isRecording) return;
+
+          const inputData = event.inputBuffer.getChannelData(0);
+          const pcm16k = downsampleTo16k(inputData, audioContext.sampleRate);
+          const pcm16Bit = floatTo16BitPCM(pcm16k);
+
+          pcmDataList.push(pcm16Bit);
         };
 
-        mediaRecorder.onstop = function() {
-          audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || "audio/webm" });
-          stream.getTracks().forEach(track => track.stop());
-        };
+        source.connect(scriptProcessor);
+        scriptProcessor.connect(audioContext.destination);
 
-        mediaRecorder.start();
+        isRecording = true;
 
         statusBox.innerText = "正在录音，请小朋友开始朗读。读完后点击“我读完了，开始识别”。";
         startRecordBtn.disabled = true;
         stopRecordBtn.disabled = false;
 
         recordingTimer = setTimeout(() => {
-          if (mediaRecorder && mediaRecorder.state === "recording") {
+          if (isRecording) {
             stopRecordingAndTranscribe();
           }
         }, 12000);
@@ -510,39 +570,41 @@
       } catch (error) {
         statusBox.innerText = "无法开始录音，请检查手机浏览器麦克风权限。";
         alert("无法开始录音，请检查麦克风权限，或换一个浏览器测试。");
+        startRecordBtn.disabled = false;
+        stopRecordBtn.disabled = true;
       }
     }
 
     async function stopRecordingAndTranscribe() {
-      if (!mediaRecorder || mediaRecorder.state !== "recording") {
+      if (!isRecording) {
         statusBox.innerText = "当前没有正在录音。请先点击“开始录音”。";
         return;
       }
 
       clearTimeout(recordingTimer);
 
+      isRecording = false;
+
       statusBox.innerText = "录音结束，正在准备识别……";
       startRecordBtn.disabled = true;
       stopRecordBtn.disabled = true;
 
-      mediaRecorder.stop();
+      stopAudioDevices();
 
-      setTimeout(async () => {
-        if (!audioBlob) {
-          statusBox.innerText = "没有录到声音，请重新录音。";
-          startRecordBtn.disabled = false;
-          return;
-        }
+      const pcmBase64 = mergePCMToBase64(pcmDataList);
 
-        await transcribeAudio(audioBlob);
-      }, 500);
+      if (!pcmBase64) {
+        statusBox.innerText = "没有录到声音，请重新录音。";
+        startRecordBtn.disabled = false;
+        return;
+      }
+
+      await transcribeAudio(pcmBase64);
     }
 
-    async function transcribeAudio(blob) {
+    async function transcribeAudio(pcmBase64) {
       try {
-        statusBox.innerText = "正在上传录音并识别，请稍等……";
-
-        const audioBase64 = await blobToBase64(blob);
+        statusBox.innerText = "正在上传录音并进行语音转文字，请稍等……";
 
         const response = await fetch("/api/transcribe", {
           method: "POST",
@@ -550,8 +612,7 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            audioBase64: audioBase64,
-            mimeType: blob.type
+            pcmBase64: pcmBase64
           })
         });
 
@@ -568,50 +629,133 @@
           statusBox.innerText = "识别完成，但没有清晰结果。";
         } else {
           resultBox.innerText = text;
-          statusBox.innerText = "识别完成。";
+          statusBox.innerText = "语音转文字完成。";
           checkResult(currentSentence, text);
         }
 
         startRecordBtn.disabled = false;
+        stopRecordBtn.disabled = true;
 
       } catch (error) {
         resultBox.innerText = "识别失败。";
         statusBox.innerText = "识别失败：" + error.message;
         startRecordBtn.disabled = false;
+        stopRecordBtn.disabled = true;
       }
     }
 
     function resetRecording() {
-      audioChunks = [];
-      audioBlob = null;
+      pcmDataList = [];
       resultBox.innerText = "等待识别结果……";
       scoreBox.innerText = "";
       statusBox.innerText = "等待开始录音。";
       startRecordBtn.disabled = false;
       stopRecordBtn.disabled = true;
+      isRecording = false;
 
       if (recordingTimer) {
         clearTimeout(recordingTimer);
       }
 
-      if (mediaRecorder && mediaRecorder.state === "recording") {
-        mediaRecorder.stop();
+      stopAudioDevices();
+    }
+
+    function stopAudioDevices() {
+      if (scriptProcessor) {
+        try {
+          scriptProcessor.disconnect();
+        } catch (e) {}
+        scriptProcessor = null;
+      }
+
+      if (audioContext) {
+        try {
+          audioContext.close();
+        } catch (e) {}
+        audioContext = null;
+      }
+
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        mediaStream = null;
       }
     }
 
-    function blobToBase64(blob) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
+    function downsampleTo16k(buffer, inputSampleRate) {
+      const outputSampleRate = 16000;
 
-        reader.onloadend = () => {
-          const result = reader.result;
-          const base64 = result.split(",")[1];
-          resolve(base64);
-        };
+      if (inputSampleRate === outputSampleRate) {
+        return buffer;
+      }
 
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
+      const sampleRateRatio = inputSampleRate / outputSampleRate;
+      const newLength = Math.round(buffer.length / sampleRateRatio);
+      const result = new Float32Array(newLength);
+
+      let offsetResult = 0;
+      let offsetBuffer = 0;
+
+      while (offsetResult < result.length) {
+        const nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);
+
+        let accum = 0;
+        let count = 0;
+
+        for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
+          accum += buffer[i];
+          count++;
+        }
+
+        result[offsetResult] = count > 0 ? accum / count : 0;
+        offsetResult++;
+        offsetBuffer = nextOffsetBuffer;
+      }
+
+      return result;
+    }
+
+    function floatTo16BitPCM(input) {
+      const output = new Int16Array(input.length);
+
+      for (let i = 0; i < input.length; i++) {
+        let s = Math.max(-1, Math.min(1, input[i]));
+        output[i] = s < 0 ? s * 0x8000 : s * 0x7fff;
+      }
+
+      return output;
+    }
+
+    function mergePCMToBase64(pcmList) {
+      if (!pcmList || pcmList.length === 0) {
+        return "";
+      }
+
+      let totalLength = 0;
+
+      for (const item of pcmList) {
+        totalLength += item.length;
+      }
+
+      const merged = new Int16Array(totalLength);
+
+      let offset = 0;
+
+      for (const item of pcmList) {
+        merged.set(item, offset);
+        offset += item.length;
+      }
+
+      const bytes = new Uint8Array(merged.buffer);
+      let binary = "";
+
+      const chunkSize = 0x8000;
+
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        const chunk = bytes.subarray(i, i + chunkSize);
+        binary += String.fromCharCode.apply(null, chunk);
+      }
+
+      return btoa(binary);
     }
 
     function cleanText(text) {
