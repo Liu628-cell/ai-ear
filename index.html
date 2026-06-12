@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI小耳朵普通话分类闯关赛</title>
+  <title>AI小耳朵普通话闯关赛</title>
 
   <style>
     * {
@@ -33,7 +33,7 @@
     }
 
     h1 {
-      font-size: 30px;
+      font-size: 28px;
       margin: 8px 0 6px;
       color: #1f3c88;
     }
@@ -105,7 +105,7 @@
     }
 
     .sentence {
-      font-size: 32px;
+      font-size: 31px;
       font-weight: bold;
       line-height: 1.5;
       background: #edf3ff;
@@ -121,7 +121,7 @@
       border-radius: 18px;
       background: #fafcff;
       padding: 18px;
-      font-size: 25px;
+      font-size: 24px;
       line-height: 1.5;
       word-break: break-all;
     }
@@ -129,8 +129,12 @@
     .tip {
       font-size: 16px;
       color: #555;
-      line-height: 1.6;
+      line-height: 1.7;
       margin-top: 12px;
+      text-align: left;
+      background: #fff8e8;
+      border-radius: 14px;
+      padding: 12px;
     }
 
     .score {
@@ -145,7 +149,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 18px;
+      margin-top: 14px;
     }
 
     button {
@@ -188,7 +192,7 @@
     }
 
     .star-box {
-      font-size: 24px;
+      font-size: 23px;
       line-height: 1.6;
       margin-top: 10px;
       background: #fff8e8;
@@ -198,21 +202,15 @@
       font-weight: bold;
     }
 
-    .manual-area {
-      margin-top: 12px;
-      text-align: left;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 82px;
-      resize: vertical;
-      border: 2px solid #d9e4ff;
-      border-radius: 16px;
-      padding: 14px;
+    .status {
+      min-height: 44px;
       font-size: 18px;
-      font-family: "Microsoft YaHei", Arial, sans-serif;
-      outline: none;
+      line-height: 1.6;
+      color: #444;
+      background: #f7f9ff;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 12px;
     }
 
     .small {
@@ -229,11 +227,11 @@
 
     @media (max-width: 520px) {
       h1 {
-        font-size: 26px;
+        font-size: 25px;
       }
 
       .sentence {
-        font-size: 28px;
+        font-size: 27px;
       }
 
       .result {
@@ -257,7 +255,7 @@
     <div class="card">
       <h1>AI小耳朵普通话闯关赛</h1>
       <div class="slogan">说清楚，AI才听得懂</div>
-      <div class="badge">分类闯关版</div>
+      <div class="badge">手机网页语音识别版</div>
 
       <div class="section-title">请选择闯关类型</div>
 
@@ -280,26 +278,29 @@
       <div id="sentence" class="sentence">老师您好</div>
 
       <div class="buttons">
-        <button id="startBtn" onclick="startListen()">开始朗读</button>
-
-        <div class="group">
-          <button class="secondary" onclick="changeSentence()">换一句</button>
-          <button class="secondary" onclick="clearResult()">清空</button>
-        </div>
-
-        <div class="group">
-          <button class="green" onclick="addStar()">小组加星</button>
-          <button class="red" onclick="resetStars()">清零星星</button>
-        </div>
+        <button class="secondary" onclick="changeSentence()">换一句</button>
       </div>
 
-      <div id="tip" class="tip">
-        志愿者点击“开始朗读”后，请小朋友对着设备读出挑战句。
+      <div class="tip">
+        <span class="highlight">操作方法：</span><br>
+        1. 点击“开始录音”。<br>
+        2. 让小朋友读出挑战句。<br>
+        3. 读完后点击“我读完了，开始识别”。<br>
+        4. 等待系统返回识别结果。<br>
+        5. 根据匹配度进行纠音或加星。
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">语音识别操作区</div>
+
+      <div class="buttons">
+        <button id="startRecordBtn" onclick="startRecording()">开始录音</button>
+        <button id="stopRecordBtn" class="orange" onclick="stopRecordingAndTranscribe()" disabled>我读完了，开始识别</button>
+        <button class="secondary" onclick="resetRecording()">重新录音</button>
       </div>
 
-      <div id="stars" class="star-box">
-        小组星星：0 颗
-      </div>
+      <div id="status" class="status">等待开始录音。</div>
     </div>
 
     <div class="card">
@@ -309,23 +310,22 @@
     </div>
 
     <div class="card">
-      <div class="section-title">备用输入区</div>
-      <div class="small">
-        如果手机浏览器不能直接识别语音，可以让志愿者打开手机键盘的语音输入，把识别出来的文字填到下面，再点击“用备用结果评分”。
-      </div>
-
-      <div class="manual-area">
-        <textarea id="manualText" placeholder="这里可以手动输入或粘贴语音识别结果"></textarea>
+      <div class="section-title">小组积分</div>
+      <div id="stars" class="star-box">
+        小组星星：0 颗
       </div>
 
       <div class="buttons">
-        <button class="orange" onclick="checkManualResult()">用备用结果评分</button>
+        <div class="group">
+          <button class="green" onclick="addStar()">小组加星</button>
+          <button class="red" onclick="resetStars()">清零星星</button>
+        </div>
       </div>
     </div>
 
     <div class="card small">
-      <p><span class="highlight">课堂提醒：</span>如果AI没有听懂，不代表小朋友失败了。可以提醒孩子放慢语速、声音大一点、咬字清楚一点，然后再挑战一次。</p>
-      <p><span class="highlight">设备提醒：</span>语音识别效果会受到浏览器、网络、环境噪声和设备麦克风影响。正式下乡前，请提前用准备带去的手机和平板测试。</p>
+      <p><span class="highlight">说明：</span>本版不使用手机键盘语音输入，而是由网页直接录音，读完后上传到后台进行语音识别。</p>
+      <p><span class="highlight">课堂提醒：</span>正式使用前，请提前用准备带去的手机和平板测试。每次录音建议控制在10秒以内。</p>
     </div>
 
   </div>
@@ -343,129 +343,74 @@
           "我爱我的学校",
           "今天我很开心",
           "我喜欢读书",
-          "我喜欢唱歌",
-          "我喜欢画画",
-          "我会说普通话",
-          "我喜欢上学",
-          "我喜欢我的老师",
-          "我有很多好朋友",
-          "请大家为我加油",
-          "我今天很勇敢"
+          "我会说普通话"
         ]
       },
 
       tuipu: {
         name: "推普小勇士",
-        desc: "当前关卡：推普小勇士。围绕普通话推广设计，让孩子在闯关中理解普通话的作用。",
+        desc: "当前关卡：推普小勇士。围绕普通话推广主题设计，让孩子在闯关中理解普通话的作用。",
         sentences: [
           "请大家讲普通话",
           "我会努力说好普通话",
           "说好普通话沟通你我他",
           "普通话让我们更好交流",
-          "我和朋友一起说普通话",
-          "学好普通话认识更多朋友",
-          "普通话是沟通的桥梁",
           "我愿意做普通话小勇士",
-          "我想把普通话说得更清楚",
-          "今天我参加普通话闯关赛",
-          "我用普通话介绍自己",
-          "我用普通话表达想法",
-          "普通话让我的声音更清楚",
-          "我们一起学习普通话",
           "大家一起说好普通话"
         ]
       },
 
       hometown: {
         name: "家乡小喇叭",
-        desc: "当前关卡：家乡小喇叭。引导孩子用普通话介绍家乡，把推普和乡村文化表达结合起来。",
+        desc: "当前关卡：家乡小喇叭。引导孩子用普通话介绍家乡。",
         sentences: [
           "我爱我的家乡",
           "我的家乡很美丽",
           "我喜欢家乡的山水",
           "我的家乡有青山绿水",
-          "我的家乡有美丽的风景",
-          "我想介绍我的家乡",
           "欢迎大家来到我的家乡",
-          "我想把家乡介绍给大家",
-          "我的家乡有勤劳的人们",
-          "我长大后要建设家乡",
-          "家乡的天空很蓝",
-          "家乡的风景真好看",
-          "我喜欢家乡的田野",
-          "我喜欢家乡的小路",
-          "我为我的家乡感到自豪"
+          "我想把家乡介绍给大家"
         ]
       },
 
       school: {
         name: "校园生活",
-        desc: "当前关卡：校园生活。围绕小学生熟悉的校园场景设计，降低表达难度。",
+        desc: "当前关卡：校园生活。围绕小学生熟悉的校园场景设计。",
         sentences: [
           "我的学校很美丽",
           "我喜欢我的老师",
           "我喜欢和同学一起学习",
           "上课时我要认真听讲",
           "下课后我们一起做游戏",
-          "我每天背着书包去上学",
-          "操场上有很多同学",
-          "教室里传来朗朗读书声",
-          "我在学校学到了很多知识",
-          "我要做一个勇敢表达的孩子",
-          "我喜欢在教室里读书",
-          "我的同桌很友好",
-          "老师教我们学习知识",
-          "我们一起参加课堂活动",
           "我今天学会了新本领"
         ]
       },
 
       pronunciation: {
         name: "难音挑战",
-        desc: "当前关卡：难音挑战。重点练习平翘舌音、前后鼻音和声调，适合志愿者进行纠音指导。",
+        desc: "当前关卡：难音挑战。重点练习平翘舌音、前后鼻音和声调。",
         sentences: [
           "我是普通话小勇士",
           "知识让我们成长",
           "城市和乡村都很美",
           "山上有许多树",
-          "老师教我们读书",
-          "我认真学习知识",
-          "春天到了花儿开放",
-          "小朋友要注意安全",
-          "请伸出手和我一起读",
-          "这是我的普通话挑战",
           "我的声音很响亮",
-          "我认真听老师讲话",
           "天上的星星亮晶晶",
-          "我有一个美丽的梦想",
           "请你听清我的声音",
-          "我们一起向前走",
-          "今天的阳光很温暖",
-          "我想成为更好的自己",
-          "普通话让声音更清楚",
-          "我相信自己能成功"
+          "普通话让声音更清楚"
         ]
       },
 
       speaker: {
         name: "终极讲解员",
-        desc: "当前关卡：终极讲解员。适合高年级学生展示，用完整句子进行表达。",
+        desc: "当前关卡：终极讲解员。适合高年级学生展示。",
         sentences: [
           "大家好我是普通话小讲解员",
           "我今天想介绍我的学校",
           "我今天想介绍我的家乡",
-          "我最喜欢家乡的美食",
           "我最喜欢家乡的风景",
           "我想把美丽的家乡讲给大家听",
-          "欢迎大家听我讲一个故事",
-          "请大家为我加油",
-          "我会勇敢地说普通话",
-          "谢谢大家听我介绍",
-          "大家好我想介绍自己",
-          "我喜欢学习也喜欢运动",
-          "我希望以后能去更远的地方",
-          "我想用普通话认识更多朋友",
-          "我相信我能说得越来越好"
+          "谢谢大家听我介绍"
         ]
       }
     };
@@ -474,14 +419,19 @@
     let currentSentence = categories[currentCategory].sentences[0];
     let starCount = 0;
 
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let audioBlob = null;
+    let recordingTimer = null;
+
     const sentenceBox = document.getElementById("sentence");
     const resultBox = document.getElementById("result");
-    const tipBox = document.getElementById("tip");
     const scoreBox = document.getElementById("score");
-    const startBtn = document.getElementById("startBtn");
     const categoryDesc = document.getElementById("categoryDesc");
     const starsBox = document.getElementById("stars");
-    const manualText = document.getElementById("manualText");
+    const statusBox = document.getElementById("status");
+    const startRecordBtn = document.getElementById("startRecordBtn");
+    const stopRecordBtn = document.getElementById("stopRecordBtn");
 
     function selectCategory(categoryKey, btn) {
       currentCategory = categoryKey;
@@ -496,7 +446,7 @@
       currentSentence = category.sentences[0];
       sentenceBox.innerText = currentSentence;
 
-      clearResult();
+      resetRecording();
     }
 
     function changeSentence() {
@@ -504,74 +454,164 @@
       const index = Math.floor(Math.random() * list.length);
       currentSentence = list[index];
       sentenceBox.innerText = currentSentence;
-      clearResult();
+      resetRecording();
     }
 
-    function startListen() {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-      if (!SpeechRecognition) {
-        alert("当前浏览器不支持网页语音识别。请使用备用输入区，或换用 Chrome 浏览器测试。");
-        return;
-      }
-
-      const recognition = new SpeechRecognition();
-
-      recognition.lang = "zh-CN";
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-
-      resultBox.innerText = "AI小耳朵正在听……";
-      scoreBox.innerText = "";
-      tipBox.innerText = "请小朋友开始朗读。";
-      startBtn.disabled = true;
-
+    async function startRecording() {
       try {
-        recognition.start();
+        audioChunks = [];
+        audioBlob = null;
+        resultBox.innerText = "等待识别结果……";
+        scoreBox.innerText = "";
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+        const supportedTypes = [
+          "audio/webm;codecs=opus",
+          "audio/webm",
+          "audio/mp4"
+        ];
+
+        let selectedType = "";
+        for (const type of supportedTypes) {
+          if (window.MediaRecorder && MediaRecorder.isTypeSupported(type)) {
+            selectedType = type;
+            break;
+          }
+        }
+
+        mediaRecorder = selectedType
+          ? new MediaRecorder(stream, { mimeType: selectedType })
+          : new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = function(event) {
+          if (event.data && event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = function() {
+          audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || "audio/webm" });
+          stream.getTracks().forEach(track => track.stop());
+        };
+
+        mediaRecorder.start();
+
+        statusBox.innerText = "正在录音，请小朋友开始朗读。读完后点击“我读完了，开始识别”。";
+        startRecordBtn.disabled = true;
+        stopRecordBtn.disabled = false;
+
+        recordingTimer = setTimeout(() => {
+          if (mediaRecorder && mediaRecorder.state === "recording") {
+            stopRecordingAndTranscribe();
+          }
+        }, 12000);
+
       } catch (error) {
-        resultBox.innerText = "启动失败，请稍后再试。";
-        tipBox.innerText = "如果连续失败，请使用备用输入区。";
-        startBtn.disabled = false;
+        statusBox.innerText = "无法开始录音，请检查手机浏览器麦克风权限。";
+        alert("无法开始录音，请检查麦克风权限，或换一个浏览器测试。");
+      }
+    }
+
+    async function stopRecordingAndTranscribe() {
+      if (!mediaRecorder || mediaRecorder.state !== "recording") {
+        statusBox.innerText = "当前没有正在录音。请先点击“开始录音”。";
         return;
       }
 
-      recognition.onresult = function(event) {
-        const text = event.results[0][0].transcript;
-        resultBox.innerText = text;
-        checkResult(currentSentence, text);
-      };
+      clearTimeout(recordingTimer);
 
-      recognition.onerror = function(event) {
-        resultBox.innerText = "识别失败，请检查麦克风权限、浏览器或网络。";
-        scoreBox.innerText = "";
-        tipBox.innerText = "可以再试一次，或者使用备用输入区。";
-        startBtn.disabled = false;
-      };
+      statusBox.innerText = "录音结束，正在准备识别……";
+      startRecordBtn.disabled = true;
+      stopRecordBtn.disabled = true;
 
-      recognition.onend = function() {
-        startBtn.disabled = false;
-        tipBox.innerText = "本轮结束，可以再次挑战。";
-      };
+      mediaRecorder.stop();
+
+      setTimeout(async () => {
+        if (!audioBlob) {
+          statusBox.innerText = "没有录到声音，请重新录音。";
+          startRecordBtn.disabled = false;
+          return;
+        }
+
+        await transcribeAudio(audioBlob);
+      }, 500);
     }
 
-    function clearResult() {
+    async function transcribeAudio(blob) {
+      try {
+        statusBox.innerText = "正在上传录音并识别，请稍等……";
+
+        const audioBase64 = await blobToBase64(blob);
+
+        const response = await fetch("/api/transcribe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            audioBase64: audioBase64,
+            mimeType: blob.type
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail || data.error || "识别失败");
+        }
+
+        const text = data.text || "";
+
+        if (!text.trim()) {
+          resultBox.innerText = "没有识别到清晰语音，请再试一次。";
+          statusBox.innerText = "识别完成，但没有清晰结果。";
+        } else {
+          resultBox.innerText = text;
+          statusBox.innerText = "识别完成。";
+          checkResult(currentSentence, text);
+        }
+
+        startRecordBtn.disabled = false;
+
+      } catch (error) {
+        resultBox.innerText = "识别失败。";
+        statusBox.innerText = "识别失败：" + error.message;
+        startRecordBtn.disabled = false;
+      }
+    }
+
+    function resetRecording() {
+      audioChunks = [];
+      audioBlob = null;
       resultBox.innerText = "等待识别结果……";
       scoreBox.innerText = "";
-      tipBox.innerText = "志愿者点击“开始朗读”后，请小朋友对着设备读出挑战句。";
-      manualText.value = "";
-    }
+      statusBox.innerText = "等待开始录音。";
+      startRecordBtn.disabled = false;
+      stopRecordBtn.disabled = true;
 
-    function checkManualResult() {
-      const text = manualText.value.trim();
-
-      if (!text) {
-        alert("请先在备用输入区输入或粘贴识别结果。");
-        return;
+      if (recordingTimer) {
+        clearTimeout(recordingTimer);
       }
 
-      resultBox.innerText = text;
-      checkResult(currentSentence, text);
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+      }
+    }
+
+    function blobToBase64(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          const result = reader.result;
+          const base64 = result.split(",")[1];
+          resolve(base64);
+        };
+
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
     }
 
     function cleanText(text) {
